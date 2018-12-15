@@ -3,7 +3,7 @@ body{
     font-size: 15px;
     line-height:1.5;
     padding:0;
-    background-color: grey;
+    background-color: purple;
    
 
 }
@@ -154,6 +154,7 @@ header a:hover{
     text-align:center;
     width:30%;
     padding:10px;
+    color: white;
 }
 
 #boxes .box img{

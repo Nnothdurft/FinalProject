@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+     <!-- Site Metas -->
+    <title>Enron Email Fraud</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="nickstyle.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="js/modernizer.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader">
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__ball"></div>
+		</div>
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+    
+	
+    <header class="header header_style_01">
+        <nav class="megamenu navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <div class="navbar-header">
+					<a class="navbar-brand" href="index.html"><img src="images/logos/logo.png" alt="image"></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="ali.html">Ali </a></li>
+                        <li><a href="julie.html">Julie</a></li>
+                        <li><a class="active" href="nick.html">Nick</a></li>
+                        <li><a href="rose.html">Rose</a></li>
+                        <li><a href="summary.html">Summary</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="bodyText">
+        <h1 align="center" margin-top=500px> Analyzing Data using Machine Learning! </h1>
+        <p align="center"> We tested a couple of different types of machine learning to try and predict which email a user belonged to based solely on its content. The body was converted into a set of 12 different reading statistics for comparison. </p>
+        <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests"><p align="center"> Flesch-Kincaid Grade Level </p></a>
+        <a href="https://en.wikipedia.org/wiki/Gunning_fog_index"><p align="center"> Gunning Fog Index </p></a>
+        <a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests"><p align="center"> Flesch-Kincaid Reading Ease </p></a>
+        <a href="https://simple.wikipedia.org/wiki/List_of_readability_tests#SMOG"><p align="center"> SMOG Formula </p></a>
+        <p align="center"> Number of Sentences </p>
+        <a href="https://simple.wikipedia.org/wiki/List_of_readability_tests#SMOG"><p align="center"> SMOG Index </p></a>
+        <p align="center"> Number of Characters </p>
+        <a href="https://en.wikipedia.org/wiki/Automated_readability_index"><p align="center"> Automated Readability Index (ARI) </p></a>
+        <a href="https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index"><p align="center"> Coleman-Liau Index </p></a>
+        <p align="center"> Number of Syllables </p>
+        <p align="center"> Number of Words </p>
+        <a href="https://www.thoughtco.com/what-is-complex-word-1689889"><p align="center"> Number of Complex Words </p></a>
+        <p align="center">From here we were able to start the machine learning. The first method used was K Nearest Neighbors (KNN). As you can see on the graph below, we were able to achieve nearly perfect results on the training data and approximately 71% on the test data.</p>
+        <img src="images/KNN Graph.png" align="middle">
+        <p align="center"> We then moved on to deep learning. By tweaking the amount of layers and neurons per layer we were able to get similar results to the KNN method. However, in the data began to overfit as seen in the val_loss graph at the bottom.</p>
+        <img src="images/CategoricalAccuracy.PNG" align="middle" width=2000px>
+        <img src="images/Loss.PNG" align="middle" width=2000px>
+        <img src="images/ValidationAccuracy.PNG" align="middle" width=2000px>
+        <img src="images/ValidationLoss.PNG" align="middle" width=2000px>
+    </div>
+    <div class="copyrights">
+            <div class="container">
+                <div class="footer-distributed">
+                    <div class="footer-left">                   
+                        <p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">BootCamp</a> Team Members : 
+                        <a>Ali Julie Nick Rose</a></p>
+                    </div>
+    
+                    
+                </div>
+            </div><!-- end container -->
+        </div><!-- end copyrights -->
+    
+        <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+    
+        <!-- ALL JS FILES -->
+        <script src="js/all.js"></script>
+        <!-- ALL PLUGINS -->
+        <script src="js/custom.js"></script>
+        <script src="js/portfolio.js"></script>
+        <script src="js/hoverdir.js"></script>    
+    
+    
+
+    
+</body>
+</html>

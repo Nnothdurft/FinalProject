@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+     <!-- Site Metas -->
+    <title>Enron Email Fraud</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="alistyle.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="js/modernizer.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader">
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__bar"></div>
+			<div class="loader__ball"></div>
+		</div>
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+    
+	
+    <header class="header header_style_01">
+        <nav class="megamenu navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <div class="navbar-header">
+					<a class="navbar-brand" href="index.html"><img src="images/logos/logo.png" alt="image"></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a class="active" href="ali.html">Ali </a></li>
+                        <li><a href="julie.html">Julie</a></li>
+                        <li><a href="nick.html">Nick</a></li>
+                        <li><a href="rose.html">Rose</a></li>
+                        <li><a href="summary.html">Summary</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="chordgraph">
+        <script src="http://d3js.org/d3.v2.min.js?2.8.1"></script>
+<hr> 
+<div style="padding-bottom:45px;"></div>
+<script>
+
+var width = 920,
+    height = 1020,
+    outerRadius = Math.min(width, height) / 2 -88,
+    innerRadius = outerRadius - 9;
+
+var arc = d3.svg.arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+
+var layout = d3.layout.chord()
+    .padding(.04)
+    .sortSubgroups(d3.descending)
+    .sortChords(d3.ascending);
+
+var path = d3.svg.chord()
+    .radius(innerRadius);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width+150)
+    .attr("height", height+190)
+   .append("g")
+    .attr("id", "circle")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+svg.append("circle")
+    .attr("r", outerRadius);
+
+//load ze data
+// peoples.csv has three columns - name, centrality score, and color. Same colors indicate same department
+//matrix is the adjacency matrix w/o column or row names
+d3.csv("peoples2.csv", function(peoples) {
+  d3.json("matrix.json", function(matrix) {
+
+    // Compute the chord layout.
+    layout.matrix(matrix); //whoo d3
+
+    // Add a group per neighborhood.
+    var group = svg.selectAll(".group")
+        .data(layout.groups)
+        .enter().append("g")
+        .attr("class", "group")
+        .on("mouseover", mouseover);
+
+    
+    group.append("title")
+      .text(function(d, i) {
+      return peoples[i].name + " : " + Math.round(((d.value))) + " emailss sent";
+    });
+
+   group.append("svg:text")
+        .attr("xlink:href", function (d) {
+            return "#group" + d.index;
+        })
+        .attr("dy", ".5em")
+        .attr("color", "#fff")
+        .text(function (d) {
+            return peoples[d.index].name;
+        });
+
+    //position group labels to match layout
+    group.select("text")
+        .transition()
+            .duration(1500)
+            .attr("transform", function(d) {
+                d.angle = (d.startAngle + d.endAngle) / 2;
+                //store the midpoint angle in the data object
+                
+                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")" +
+                    " translate(" + (innerRadius + 9) + ")" + 
+                    (d.angle > Math.PI ? " rotate(180)" : " rotate(0)"); 
+                //include the rotate zero so that transforms can be interpolated
+            })
+            .attr("text-anchor", function (d) {
+                return d.angle > Math.PI ? "end" : "begin";
+            });
+    
+
+
+    // arc 
+    var groupPath = group.append("path")
+        .attr("id", function(d, i) { return "group" + i; })
+        .attr("d", arc)
+        .style("fill", function(d, i) { return peoples[i].color; });
+
+    // text label
+ /*   var groupText = group.append("text")
+        .attr("x", 6)
+        .attr("dy", 15);
+
+    groupText.append("textPath")
+        .attr("xlink:href", function(d, i) { return "#group" + i; })
+        .text(function(d, i) { return "   " + peoples[i].name; });
+
+
+    // Remove the labels that don't fit. :(
+        groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 16 < this.getComputedTextLength(); })
+        .remove(); */
+ 
+    // Add the chords.
+    var chord = svg.selectAll(".chord")
+        .data(layout.chords)
+        .enter().append("path")
+        .attr("class", "chord")
+        .style("fill", function(d) { return peoples[d.source.index].color; })
+        .attr("d", path);
+
+    chord.append("title")
+    .text(function(d) {
+      //.style("fill", function(d) {return #FFFFFF; })
+      //.attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
+      return peoples[d.source.index].name
+          + " sent " + Math.round((d.source.value))
+          + " emails to " + peoples[d.target.index].name
+          + "\n" + peoples[d.target.index].name
+          + " sent " + Math.round((d.target.value)) 
+          + " emails to " + peoples[d.source.index].name;
+    });
+
+
+
+    function mouseover(d, i) {
+      chord.classed("fade", function(p) {
+        return p.source.index != i
+            && p.target.index != i;
+      });
+    } 
+  });
+});
+
+</script>
+    </div>
+    <div class="copyrights">
+            <div class="container">
+                <div class="footer-distributed">
+                    <div class="footer-left">                   
+                        <p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">BootCamp</a> Team Members : 
+                        <a>Ali Julie Nick Rose</a></p>
+                    </div>
+    
+                    
+                </div>
+            </div><!-- end container -->
+        </div><!-- end copyrights -->
+    
+        <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+    
+        <!-- ALL JS FILES -->
+        <script src="js/all.js"></script>
+        <!-- ALL PLUGINS -->
+        <script src="js/custom.js"></script>
+        <script src="js/portfolio.js"></script>
+        <script src="js/hoverdir.js"></script>    
+    
+    
+
+    
+</body>
+</html>
